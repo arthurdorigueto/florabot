@@ -155,6 +155,11 @@ def start_bot():
         bot_used_stations = int(stations_used_entry.get())
         rows = int(rows_entry.get())  # Get number of rows
 
+        # start adb
+        serial = 'localhost:5555'
+        adb_path = os.path.join(os.getcwd(), 'platform-tools')
+        subprocess.check_output(['adb', 'connect', serial], cwd=adb_path, shell=True)
+    
         bot = Bot(bot_capacity, bot_clicks, bot_stations, bot_used_stations, rows)
 
         bot.running = True
@@ -233,6 +238,7 @@ start_button.grid(row=6, column=0)
 
 stop_button = tk.Button(main_frame, text="Stop", command=stop_bot)
 stop_button.grid(row=6, column=1)
+
 
 # Setting default values if needed
 station_capacity_entry.insert(0, "5")
